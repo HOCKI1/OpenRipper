@@ -20,7 +20,7 @@
 | Graphics API / Environment | Current Status |
 | :--- | :---: |
 | **Vulkan (Legacy/RPCS3)** | 🟢 Supported |
-| **DirectX 9 — 12 (+ DXVK)** | 🟡 In Development |
+| **DirectX 9 — 12** | 🟡 In Development |
 | **OpenGL** | 🔴 Planned |
 | **GUI Loader** | 🟢 Ready |
 
