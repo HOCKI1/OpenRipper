@@ -1,0 +1,3 @@
+C:/Users/Makso/Desktop/OpenRipper/build/CMakeFiles/OpenRipperVk.dir
+C:/Users/Makso/Desktop/OpenRipper/build/CMakeFiles/edit_cache.dir
+C:/Users/Makso/Desktop/OpenRipper/build/CMakeFiles/rebuild_cache.dir
