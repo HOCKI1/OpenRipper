@@ -20,7 +20,11 @@ if not exist "%GAME_PATH%" (
     exit /b 1
 )
 
-set "LAYER_DIR=%~dp0build"
+if exist "%~dp0build\VkLayer_openripper.json" (
+    set "LAYER_DIR=%~dp0build"
+) else (
+    set "LAYER_DIR=%~dp0"
+)
 set "VK_LAYER_PATH=%LAYER_DIR%"
 set "VK_INSTANCE_LAYERS=VK_LAYER_OPENRIPPER_capture"
 set "ENABLE_OPENRIPPER=1"
@@ -28,8 +32,8 @@ set "ENABLE_OPENRIPPER=1"
 echo [*] VK_LAYER_PATH set to: %VK_LAYER_PATH%
 echo [*] VK_INSTANCE_LAYERS set to: %VK_INSTANCE_LAYERS%
 echo [*] Output directory: C:\OpenRipperDumps
-echo [*] Hotkey to rip: [ 5 ] (Обычная клавиша 5 в верхнем ряду клавиатуры)
-echo [*] Alternative hotkeys: [ F8 ], [ INSERT ], [ DELETE ]
+echo [*] Hotkey to rip: [ 0 ] (Обычная клавиша 0 в верхнем ряду клавиатуры)
+echo [*] Alternative hotkeys: [ INSERT ], [ F8 ]
 echo [*] Audio feedback: You will hear a BEEP when rip starts and completes!
 echo.
 echo Launching game...
@@ -37,5 +41,5 @@ cd /d "%~dp1"
 start "" "%GAME_PATH%"
 
 echo.
-echo [OK] Game started! Press '5' in game.
+echo [OK] Game started! Press '0' or 'Insert' in game.
 pause
