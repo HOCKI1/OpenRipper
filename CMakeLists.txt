@@ -39,3 +39,10 @@ add_custom_command(TARGET OpenRipperVk POST_BUILD
     "${CMAKE_CURRENT_SOURCE_DIR}/backends/vulkan/VkLayer_openripper.json"
     "$<TARGET_FILE_DIR:OpenRipperVk>/VkLayer_openripper.json"
 )
+
+# OpenRipper Native Win32 Loader
+add_executable(OpenRipperLoader WIN32 OpenRipperLoader.cpp)
+target_link_libraries(OpenRipperLoader PRIVATE comctl32 shell32)
+if (NOT MSVC)
+    target_link_options(OpenRipperLoader PRIVATE -static -static-libgcc -static-libstdc++ -mwindows)
+endif()

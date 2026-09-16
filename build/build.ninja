@@ -100,6 +100,42 @@ build OpenRipperVk.dll libOpenRipperVk.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRip
   TARGET_PDB = OpenRipperVk.dll.dbg
   TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperVk.dir
 
+# =============================================================================
+# Object build statements for EXECUTABLE target OpenRipperLoader
+
+
+#############################################
+# Order-only phony target for OpenRipperLoader
+
+build cmake_object_order_depends_target_OpenRipperLoader: phony || .
+
+build CMakeFiles/OpenRipperLoader.dir/OpenRipperLoader.cpp.obj: CXX_COMPILER__OpenRipperLoader_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/OpenRipperLoader.cpp || cmake_object_order_depends_target_OpenRipperLoader
+  DEP_FILE = CMakeFiles\OpenRipperLoader.dir\OpenRipperLoader.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan
+  OBJECT_DIR = CMakeFiles\OpenRipperLoader.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperLoader.dir
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperLoader.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target OpenRipperLoader
+
+
+#############################################
+# Link the executable OpenRipperLoader.exe
+
+build OpenRipperLoader.exe: CXX_EXECUTABLE_LINKER__OpenRipperLoader_ CMakeFiles/OpenRipperLoader.dir/OpenRipperLoader.cpp.obj
+  LINK_FLAGS = -mwindows -static -static-libgcc -static-libstdc++ -mwindows
+  LINK_LIBRARIES = -lcomctl32  -lshell32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\OpenRipperLoader.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = OpenRipperLoader.exe
+  TARGET_IMPLIB = libOpenRipperLoader.dll.a
+  TARGET_PDB = OpenRipperLoader.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperLoader.dir
+
 
 #############################################
 # Utility command for edit_cache
@@ -127,6 +163,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
+build OpenRipperLoader: phony OpenRipperLoader.exe
+
 build OpenRipperVk: phony OpenRipperVk.dll
 
 # =============================================================================
@@ -137,7 +175,7 @@ build OpenRipperVk: phony OpenRipperVk.dll
 #############################################
 # Folder: C:/Users/Makso/Desktop/OpenRipper/build
 
-build all: phony OpenRipperVk.dll
+build all: phony OpenRipperVk.dll OpenRipperLoader.exe
 
 # =============================================================================
 # Built-in targets

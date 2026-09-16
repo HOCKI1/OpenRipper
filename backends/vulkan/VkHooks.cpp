@@ -819,11 +819,35 @@ void VulkanRipper::OnCmdDraw(VkCommandBuffer commandBuffer, uint32_t vertexCount
 
 void VulkanRipper::OnQueuePresentKHR(VkQueue queue, const VkPresentInfoKHR* pPresentInfo) {
     static bool g_WasKeyPressed = false;
-    bool keyPressed = (GetAsyncKeyState('5') & 0x8000) ||
-                      (GetAsyncKeyState(VK_F8) & 0x8000) ||
-                      (GetAsyncKeyState(VK_INSERT) & 0x8000) ||
-                      (GetAsyncKeyState(VK_DELETE) & 0x8000) ||
-                      (GetAsyncKeyState(VK_F9) & 0x8000);
+    static int s_Key1 = '0';
+    static int s_Key2 = VK_INSERT;
+    static bool s_Initialized = false;
+
+    if (!s_Initialized) {
+        s_Initialized = true;
+        char iniPath[MAX_PATH] = "C:\\OpenRipperDumps\\openripper.ini";
+
+        char szDllPath[MAX_PATH] = {0};
+        HMODULE hMod = GetModuleHandleA("OpenRipperVk.dll");
+        if (hMod && GetModuleFileNameA(hMod, szDllPath, MAX_PATH)) {
+            std::filesystem::path p(szDllPath);
+            std::string altIni = (p.parent_path() / "openripper.ini").string();
+            if (std::filesystem::exists(altIni)) {
+                std::strncpy(iniPath, altIni.c_str(), MAX_PATH - 1);
+            }
+        }
+
+        s_Key1 = GetPrivateProfileIntA("Config", "Key1", '0', iniPath);
+        s_Key2 = GetPrivateProfileIntA("Config", "Key2", VK_INSERT, iniPath);
+
+        char outDir[MAX_PATH] = {0};
+        if (GetPrivateProfileStringA("Config", "OutputDir", "", outDir, MAX_PATH, iniPath) > 0) {
+            outputDir = outDir;
+        }
+    }
+
+    bool keyPressed = (GetAsyncKeyState(s_Key1) & 0x8000) ||
+                      (GetAsyncKeyState(s_Key2) & 0x8000);
 
     if (captureFramesRemaining.load() > 0) {
         int rem = --captureFramesRemaining;
@@ -832,7 +856,7 @@ void VulkanRipper::OnQueuePresentKHR(VkQueue queue, const VkPresentInfoKHR* pPre
             LogDebug(">>> Capture window FINISHED <<<");
         }
     } else if (keyPressed && !g_WasKeyPressed) {
-        captureFramesRemaining = 2; // Capture the next complete frame
+        captureFramesRemaining = 3; // Capture complete frame window
         frameCounter++;
         currentDrawCallIndex = 0;
         Beep(1000, 150);
