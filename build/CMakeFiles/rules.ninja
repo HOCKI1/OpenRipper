@@ -33,6 +33,44 @@ rule CXX_SHARED_LIBRARY_LINKER__OpenRipperVk_
 #############################################
 # Rule for compiling CXX files.
 
+rule CXX_COMPILER__OpenRipperDx9_unscanned_
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}C:\msys64\ucrt64\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
+# Rule for linking CXX shared library.
+
+rule CXX_SHARED_LIBRARY_LINKER__OpenRipperDx9_
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\msys64\ucrt64\bin\g++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  description = Linking CXX shared library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__OpenRipperDx11_unscanned_
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}C:\msys64\ucrt64\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
+# Rule for linking CXX shared library.
+
+rule CXX_SHARED_LIBRARY_LINKER__OpenRipperDx11_
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\msys64\ucrt64\bin\g++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  description = Linking CXX shared library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling CXX files.
+
 rule CXX_COMPILER__OpenRipperLoader_unscanned_
   depfile = $DEP_FILE
   deps = gcc
@@ -55,6 +93,25 @@ rule CXX_EXECUTABLE_LINKER__OpenRipperLoader_
 rule CUSTOM_COMMAND
   command = $COMMAND
   description = $DESC
+
+
+#############################################
+# Rule for compiling C files.
+
+rule C_COMPILER__minhook_unscanned_
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}C:\msys64\ucrt64\bin\gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER__minhook_
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\msys64\ucrt64\bin\ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\msys64\ucrt64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
 
 
 #############################################

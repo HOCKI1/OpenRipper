@@ -1,7 +1,8 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Users/Makso/Desktop/OpenRipper/build/cmake_install.cmake"
+		"C:/Users/Makso/Desktop/OpenRipper/build/cmake_install.cmake",
+		"C:/Users/Makso/Desktop/OpenRipper/build/third_party/minhook/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

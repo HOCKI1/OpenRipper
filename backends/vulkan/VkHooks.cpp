@@ -832,8 +832,11 @@ void VulkanRipper::OnQueuePresentKHR(VkQueue queue, const VkPresentInfoKHR* pPre
         if (hMod && GetModuleFileNameA(hMod, szDllPath, MAX_PATH)) {
             std::filesystem::path p(szDllPath);
             std::string altIni = (p.parent_path() / "openripper.ini").string();
+            std::string parentAltIni = (p.parent_path().parent_path() / "openripper.ini").string();
             if (std::filesystem::exists(altIni)) {
                 std::strncpy(iniPath, altIni.c_str(), MAX_PATH - 1);
+            } else if (std::filesystem::exists(parentAltIni)) {
+                std::strncpy(iniPath, parentAltIni.c_str(), MAX_PATH - 1);
             }
         }
 
