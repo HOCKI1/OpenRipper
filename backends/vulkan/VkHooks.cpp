@@ -849,8 +849,17 @@ void VulkanRipper::OnQueuePresentKHR(VkQueue queue, const VkPresentInfoKHR* pPre
         }
     }
 
+    bool triggeredByFile = false;
+    std::string trigPath = "C:\\OpenRipperDumps\\trigger_rip.txt";
+    if (std::filesystem::exists(trigPath)) {
+        std::filesystem::remove(trigPath);
+        triggeredByFile = true;
+        LogDebug(">>> TRIGGER DETECTED via trigger_rip.txt <<<");
+    }
+
     bool keyPressed = (GetAsyncKeyState(s_Key1) & 0x8000) ||
-                      (GetAsyncKeyState(s_Key2) & 0x8000);
+                      (GetAsyncKeyState(s_Key2) & 0x8000) ||
+                      triggeredByFile;
 
     if (captureFramesRemaining.load() > 0) {
         int rem = --captureFramesRemaining;

@@ -11,7 +11,7 @@ cd /d "%~dp0"
 if not exist bin mkdir bin
 if not exist bin\backends mkdir bin\backends
 
-echo [*] Building 64-bit components (Loader, Vulkan, D3D9 x64, D3D11 x64)...
+echo [*] Building 64-bit components (Loader, Vulkan, D3D9 x64, D3D11 x64, OpenGL x64)...
 set "PATH=C:\msys64\ucrt64\bin;C:\msys64\usr\bin;%PATH%"
 
 cmake -B build -S . -G Ninja
@@ -27,7 +27,7 @@ if errorlevel 1 (
 )
 
 echo.
-echo [*] Building 32-bit components (D3D9 x86, Injector32)...
+echo [*] Building 32-bit components (D3D9 x86, OpenGL x86, Injector32)...
 set "PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%"
 
 g++ -O3 -shared -static -static-libgcc -static-libstdc++ ^
@@ -39,6 +39,18 @@ g++ -O3 -shared -static -static-libgcc -static-libstdc++ ^
 
 if errorlevel 1 (
     echo [ERROR] 32-bit OpenRipperDx9_x86.dll build failed!
+    exit /b 1
+)
+
+g++ -O3 -shared -static -static-libgcc -static-libstdc++ ^
+    -Icore -Ibackends/opengl -Ithird_party/minhook/include ^
+    core/ObjExporter.cpp backends/opengl/OpenGLCapture.cpp backends/opengl/OpenGLHooks.cpp ^
+    third_party/minhook/src/buffer.c third_party/minhook/src/hook.c ^
+    third_party/minhook/src/trampoline.c third_party/minhook/src/hde/hde32.c ^
+    -o bin/backends/OpenRipperGL_x86.dll -lopengl32 -lgdi32 -luser32
+
+if errorlevel 1 (
+    echo [ERROR] 32-bit OpenRipperGL_x86.dll build failed!
     exit /b 1
 )
 
@@ -57,6 +69,7 @@ if exist openripper.ini copy /y openripper.ini bin\ >nul
 if exist README.txt copy /y README.txt bin\ >nul
 if exist run_vulkan_capture.bat copy /y run_vulkan_capture.bat bin\ >nul
 if exist backends\vulkan\VkLayer_openripper.json copy /y backends\vulkan\VkLayer_openripper.json bin\backends\ >nul
+if exist third_party\dxvk xcopy /s /e /y /q third_party\dxvk bin\dxvk >nul
 
 echo.
 echo ========================================================
@@ -75,4 +88,6 @@ echo       VkLayer_openripper.json
 echo       OpenRipperDx9.dll
 echo       OpenRipperDx9_x86.dll
 echo       OpenRipperDx11.dll
+echo       OpenRipperGL.dll
+echo       OpenRipperGL_x86.dll
 echo ========================================================

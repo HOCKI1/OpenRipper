@@ -128,6 +128,45 @@ else()
     target_link_options(OpenRipperDx11 PRIVATE -static -static-libgcc -static-libstdc++)
 endif()
 
+# OpenGL backend
+set(GL_SOURCES
+    core/ObjExporter.cpp
+    backends/opengl/OpenGLCapture.cpp
+    backends/opengl/OpenGLHooks.cpp
+)
+
+add_library(OpenRipperGL SHARED ${GL_SOURCES})
+set_target_properties(OpenRipperGL PROPERTIES
+    PREFIX ""
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/backends"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/backends"
+)
+
+target_include_directories(OpenRipperGL PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/backends/opengl
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/minhook/include
+)
+
+target_compile_definitions(OpenRipperGL PRIVATE
+    NOMINMAX
+    WIN32_LEAN_AND_MEAN
+)
+
+target_link_libraries(OpenRipperGL PRIVATE
+    minhook
+    opengl32
+    gdi32
+    user32
+)
+
+if (MSVC)
+    target_compile_options(OpenRipperGL PRIVATE /W3 /O2)
+else()
+    target_compile_options(OpenRipperGL PRIVATE -Wall -O3)
+    target_link_options(OpenRipperGL PRIVATE -static -static-libgcc -static-libstdc++)
+endif()
+
 # OpenRipper Native Win32 Loader
 add_executable(OpenRipperLoader WIN32 loader/OpenRipperLoader.cpp)
 set_target_properties(OpenRipperLoader PROPERTIES

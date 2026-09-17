@@ -213,6 +213,62 @@ build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll libOpen
   TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperDx11.dir
 
 # =============================================================================
+# Object build statements for SHARED_LIBRARY target OpenRipperGL
+
+
+#############################################
+# Order-only phony target for OpenRipperGL
+
+build cmake_object_order_depends_target_OpenRipperGL: phony || cmake_object_order_depends_target_minhook
+
+build CMakeFiles/OpenRipperGL.dir/core/ObjExporter.cpp.obj: CXX_COMPILER__OpenRipperGL_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/core/ObjExporter.cpp || cmake_object_order_depends_target_OpenRipperGL
+  DEFINES = -DNOMINMAX -DOpenRipperGL_EXPORTS -DWIN32_LEAN_AND_MEAN
+  DEP_FILE = CMakeFiles\OpenRipperGL.dir\core\ObjExporter.cpp.obj.d
+  FLAGS = -std=gnu++17 -Wall -O3
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/backends/opengl -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = CMakeFiles\OpenRipperGL.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperGL.dir\core
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperGL.dir
+
+build CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLCapture.cpp.obj: CXX_COMPILER__OpenRipperGL_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/backends/opengl/OpenGLCapture.cpp || cmake_object_order_depends_target_OpenRipperGL
+  DEFINES = -DNOMINMAX -DOpenRipperGL_EXPORTS -DWIN32_LEAN_AND_MEAN
+  DEP_FILE = CMakeFiles\OpenRipperGL.dir\backends\opengl\OpenGLCapture.cpp.obj.d
+  FLAGS = -std=gnu++17 -Wall -O3
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/backends/opengl -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = CMakeFiles\OpenRipperGL.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperGL.dir\backends\opengl
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperGL.dir
+
+build CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLHooks.cpp.obj: CXX_COMPILER__OpenRipperGL_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/backends/opengl/OpenGLHooks.cpp || cmake_object_order_depends_target_OpenRipperGL
+  DEFINES = -DNOMINMAX -DOpenRipperGL_EXPORTS -DWIN32_LEAN_AND_MEAN
+  DEP_FILE = CMakeFiles\OpenRipperGL.dir\backends\opengl\OpenGLHooks.cpp.obj.d
+  FLAGS = -std=gnu++17 -Wall -O3
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/backends/opengl -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = CMakeFiles\OpenRipperGL.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperGL.dir\backends\opengl
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperGL.dir
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target OpenRipperGL
+
+
+#############################################
+# Link the shared library C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperGL.dll
+
+build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll libOpenRipperGL.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperGL_ CMakeFiles/OpenRipperGL.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLCapture.cpp.obj CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLHooks.cpp.obj | third_party/minhook/minhook.a || third_party/minhook/minhook.a
+  LINK_FLAGS = -shared -static -static-libgcc -static-libstdc++
+  LINK_LIBRARIES = third_party/minhook/minhook.a  -lopengl32  -lgdi32  -luser32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\OpenRipperGL.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  RESTAT = 1
+  TARGET_FILE = C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperGL.dll
+  TARGET_IMPLIB = libOpenRipperGL.dll.a
+  TARGET_PDB = OpenRipperGL.dll.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperGL.dir
+
+# =============================================================================
 # Object build statements for EXECUTABLE target OpenRipperLoader
 
 
@@ -449,6 +505,10 @@ build OpenRipperDx9: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenR
 
 build OpenRipperDx9.dll: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll
 
+build OpenRipperGL: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll
+
+build OpenRipperGL.dll: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll
+
 build OpenRipperLoader: phony C$:/Users/Makso/Desktop/OpenRipper/bin/OpenRipperLoader.exe
 
 build OpenRipperLoader.exe: phony C$:/Users/Makso/Desktop/OpenRipper/bin/OpenRipperLoader.exe
@@ -469,7 +529,7 @@ build minhook.a: phony third_party/minhook/minhook.a
 #############################################
 # Folder: C:/Users/Makso/Desktop/OpenRipper/build
 
-build all: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperVk.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll C$:/Users/Makso/Desktop/OpenRipper/bin/OpenRipperLoader.exe
+build all: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperVk.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll C$:/Users/Makso/Desktop/OpenRipper/bin/OpenRipperLoader.exe
 
 # =============================================================================
 

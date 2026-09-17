@@ -122,6 +122,48 @@ static std::string FindHelperExecutable(const std::string& exeName) {
     return "";
 }
 
+static std::string FindDxvkDir(bool is64Bit) {
+    std::string sub = is64Bit ? "x64" : "x32";
+    std::string appDir = GetAppDir();
+    std::string candidates[] = {
+        appDir + "\\dxvk\\" + sub,
+        appDir + "\\bin\\dxvk\\" + sub,
+        appDir + "\\..\\bin\\dxvk\\" + sub,
+        appDir + "\\..\\third_party\\dxvk\\" + sub
+    };
+    for (const auto& c : candidates) {
+        if (std::filesystem::exists(c)) return c;
+    }
+    return "";
+}
+
+struct DxvkCleanupContext {
+    HANDLE hProcess = NULL;
+    HANDLE hThread = NULL;
+    std::vector<std::string> copiedFiles;
+};
+
+static DWORD WINAPI DxvkCleanupThread(LPVOID lpParam) {
+    auto* ctx = reinterpret_cast<DxvkCleanupContext*>(lpParam);
+    if (ctx) {
+        if (ctx->hProcess) {
+            WaitForSingleObject(ctx->hProcess, INFINITE);
+            CloseHandle(ctx->hProcess);
+        }
+        if (ctx->hThread) {
+            CloseHandle(ctx->hThread);
+        }
+        Sleep(500);
+        for (const auto& f : ctx->copiedFiles) {
+            try {
+                std::filesystem::remove(f);
+            } catch (...) {}
+        }
+        delete ctx;
+    }
+    return 0;
+}
+
 static bool Is64BitExecutable(const std::string& exePath) {
     HANDLE hFile = CreateFileA(exePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
     if (hFile == INVALID_HANDLE_VALUE) return true;
@@ -208,8 +250,8 @@ static void SaveConfig() {
     const char* apiName = "Vulkan";
     if (apiIndex == 1) apiName = "DirectX 9";
     else if (apiIndex == 2) apiName = "DirectX 11";
-    else if (apiIndex == 3) apiName = "DXVK";
-    else if (apiIndex == 4) apiName = "OpenGL";
+    else if (apiIndex == 3) apiName = "OpenGL";
+    else if (apiIndex == 4) apiName = "DXVK";
 
     std::vector<std::string> iniTargets = {
         GetConfigPath(),
@@ -483,8 +525,170 @@ static void LaunchGame(HWND hWnd) {
             SetWindowTextA(g_hStatus, errStr.c_str());
             MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
         }
+    } else if (apiIndex == 3) {
+        // OpenGL (Injection)
+        std::string dllName = is64Bit ? "OpenRipperGL.dll" : "OpenRipperGL_x86.dll";
+        std::string dllPath = FindBackendFile(dllName);
+
+        if (dllPath.empty() || !std::filesystem::exists(dllPath)) {
+            std::string msg = dllName + " not found in backends or application directory!";
+            MessageBoxA(hWnd, msg.c_str(), "OpenRipper Loader", MB_ICONERROR);
+            return;
+        }
+
+        BOOL success = CreateProcessA(
+            gamePath, NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL,
+            workDir.c_str(), &si, &pi
+        );
+
+        if (success) {
+            bool injected = false;
+
+            if (is64Bit) {
+                // 64-bit direct injection
+                SIZE_T len = dllPath.length() + 1;
+                LPVOID pRemoteMem = VirtualAllocEx(pi.hProcess, NULL, len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+                if (pRemoteMem) {
+                    if (WriteProcessMemory(pi.hProcess, pRemoteMem, dllPath.c_str(), len, NULL)) {
+                        HMODULE hK32 = GetModuleHandleA("kernel32.dll");
+                        LPTHREAD_START_ROUTINE pfnLoadLib = (LPTHREAD_START_ROUTINE)GetProcAddress(hK32, "LoadLibraryA");
+                        HANDLE hThread = CreateRemoteThread(pi.hProcess, NULL, 0, pfnLoadLib, pRemoteMem, 0, NULL);
+                        if (hThread) {
+                            WaitForSingleObject(hThread, 3000);
+                            CloseHandle(hThread);
+                            injected = true;
+                        }
+                    }
+                    VirtualFreeEx(pi.hProcess, pRemoteMem, 0, MEM_RELEASE);
+                }
+            } else {
+                // 32-bit helper injection via OpenRipperInjector32.exe
+                std::string injectorPath = FindHelperExecutable("OpenRipperInjector32.exe");
+
+                if (injectorPath.empty() || !std::filesystem::exists(injectorPath)) {
+                    MessageBoxA(hWnd, "OpenRipperInjector32.exe helper not found!", "OpenRipper Loader", MB_ICONERROR);
+                    ResumeThread(pi.hThread);
+                    CloseHandle(pi.hThread);
+                    CloseHandle(pi.hProcess);
+                    return;
+                }
+
+                std::string cmd = "\"" + injectorPath + "\" " + std::to_string(pi.dwProcessId) + " \"" + dllPath + "\"";
+
+                STARTUPINFOA siInj = {0};
+                PROCESS_INFORMATION piInj = {0};
+                siInj.cb = sizeof(siInj);
+
+                if (CreateProcessA(NULL, (LPSTR)cmd.c_str(), NULL, NULL, FALSE, 0, NULL, NULL, &siInj, &piInj)) {
+                    WaitForSingleObject(piInj.hProcess, 5000);
+                    DWORD exitCode = 0;
+                    GetExitCodeProcess(piInj.hProcess, &exitCode);
+                    CloseHandle(piInj.hThread);
+                    CloseHandle(piInj.hProcess);
+                    if (exitCode == 0) {
+                        injected = true;
+                    }
+                }
+            }
+
+            ResumeThread(pi.hThread);
+            CloseHandle(pi.hThread);
+            CloseHandle(pi.hProcess);
+
+            if (injected) {
+                std::ostringstream ss;
+                ss << "OpenGL Game launched and injected successfully!\n\n"
+                   << "Architecture: " << (is64Bit ? "64-bit (x64)" : "32-bit (x86)") << "\n"
+                   << "Injected DLL: " << dllName << "\n"
+                   << "Primary hotkey: [ " << g_KeyList1[key1Idx].name << " ]\n"
+                   << "Secondary hotkey: [ " << g_KeyList2[key2Idx].name << " ]\n"
+                   << "Output folder: " << outDir;
+                SetWindowTextA(g_hStatus, "Game is running with OpenGL hook. Press hotkey in-game.");
+                MessageBoxA(hWnd, ss.str().c_str(), "OpenRipper OpenGL Active", MB_ICONINFORMATION);
+            } else {
+                std::string warnStr = "Game started, but DLL injection failed (possible anti-cheat or permissions issue).";
+                SetWindowTextA(g_hStatus, warnStr.c_str());
+                MessageBoxA(hWnd, warnStr.c_str(), "Injection Warning", MB_ICONWARNING);
+            }
+        } else {
+            DWORD err = GetLastError();
+            std::string errStr = "Failed to launch game. Error code: " + std::to_string(err);
+            SetWindowTextA(g_hStatus, errStr.c_str());
+            MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
+        }
+    } else if (apiIndex == 4) {
+        // DXVK (DirectX -> Vulkan)
+        std::string dxvkDir = FindDxvkDir(is64Bit);
+        if (dxvkDir.empty() || !std::filesystem::exists(dxvkDir)) {
+            std::string msg = "DXVK directory (" + std::string(is64Bit ? "x64" : "x32") + ") not found!";
+            MessageBoxA(hWnd, msg.c_str(), "OpenRipper Loader", MB_ICONERROR);
+            return;
+        }
+
+        std::string jsonPath = FindBackendFile("VkLayer_openripper.json");
+        std::string layerDir = appDir;
+        if (!jsonPath.empty()) {
+            std::filesystem::path jp(jsonPath);
+            layerDir = jp.parent_path().string();
+        }
+
+        SetEnvironmentVariableA("VK_LAYER_PATH", layerDir.c_str());
+        SetEnvironmentVariableA("VK_INSTANCE_LAYERS", "VK_LAYER_OPENRIPPER_capture");
+        SetEnvironmentVariableA("ENABLE_OPENRIPPER", "1");
+
+        // Copy DXVK DLLs to workDir
+        std::vector<std::string> dxvkDlls = {"d3d11.dll", "dxgi.dll", "d3d9.dll", "d3d8.dll", "d3d10core.dll"};
+        std::vector<std::string> newlyCopied;
+
+        for (const auto& dll : dxvkDlls) {
+            std::string src = dxvkDir + "\\" + dll;
+            std::string dst = workDir + "\\" + dll;
+            if (std::filesystem::exists(src)) {
+                if (!std::filesystem::exists(dst)) {
+                    try {
+                        std::filesystem::copy_file(src, dst, std::filesystem::copy_options::overwrite_existing);
+                        newlyCopied.push_back(dst);
+                    } catch (...) {}
+                }
+            }
+        }
+
+        BOOL success = CreateProcessA(
+            gamePath, NULL, NULL, NULL, FALSE, 0, NULL,
+            workDir.c_str(), &si, &pi
+        );
+
+        if (success) {
+            auto* cleanupCtx = new DxvkCleanupContext();
+            cleanupCtx->hProcess = pi.hProcess;
+            cleanupCtx->hThread = pi.hThread;
+            cleanupCtx->copiedFiles = newlyCopied;
+
+            HANDLE hCleanThread = CreateThread(NULL, 0, DxvkCleanupThread, cleanupCtx, 0, NULL);
+            if (hCleanThread) CloseHandle(hCleanThread);
+
+            std::ostringstream ss;
+            ss << "Game launched with DXVK -> Vulkan OpenRipper!\n\n"
+               << "Architecture: " << (is64Bit ? "64-bit (x64)" : "32-bit (x86)") << "\n"
+               << "DXVK Translation: Active in game directory\n"
+               << "Vulkan Layer: VK_LAYER_OPENRIPPER_capture\n"
+               << "Primary hotkey: [ " << g_KeyList1[key1Idx].name << " ]\n"
+               << "Secondary hotkey: [ " << g_KeyList2[key2Idx].name << " ]\n"
+               << "Output folder: " << outDir << "\n\n"
+               << "(DXVK DLLs will be automatically removed from the game folder when the game exits)";
+            SetWindowTextA(g_hStatus, "Game is running via DXVK. Press hotkey in-game.");
+            MessageBoxA(hWnd, ss.str().c_str(), "OpenRipper DXVK Active", MB_ICONINFORMATION);
+        } else {
+            for (const auto& f : newlyCopied) {
+                try { std::filesystem::remove(f); } catch (...) {}
+            }
+            DWORD err = GetLastError();
+            std::string errStr = "Failed to launch game. Error code: " + std::to_string(err);
+            SetWindowTextA(g_hStatus, errStr.c_str());
+            MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
+        }
     } else {
-        // Fallback for DXVK / other
+        // Fallback
         BOOL success = CreateProcessA(
             gamePath, NULL, NULL, NULL, FALSE, 0, NULL,
             workDir.c_str(), &si, &pi
@@ -516,8 +720,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"Vulkan (Native / RPCS3)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DirectX 9 (D3D9 Injection)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DirectX 11 (D3D11 Injection)");
+            SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"OpenGL (GL Injection)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DXVK (DirectX -> Vulkan)");
-            SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"OpenGL (Future)");
             SendMessageA(g_hComboApi, CB_SETCURSEL, 0, 0);
 
             CreateWindowA("STATIC", "Primary Hotkey:", WS_VISIBLE | WS_CHILD,
