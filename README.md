@@ -24,7 +24,7 @@
 | **DirectX 10** | 🟡 In Development |
 | **DirectX 11** | 🟢 Supported |
 | **DirectX 12** | 🟡 In Development |
-| **OpenGL** | 🔴 Planned |
+| **OpenGL** | 🟢 Supported |
 | **GUI Loader** | 🟢 Ready |
 
 ---
