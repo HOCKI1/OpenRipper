@@ -2,6 +2,9 @@
 
 **OpenRipper** is an open-source research toolkit designed for studying rendering architectures, graphics pipelines, and cross-platform API translation mechanisms. This project is developed strictly for academic, educational, and analytical purposes.
 
+You can support development on Buy me Coffee.
+https://buymeacoffee.com/makskraft
+
 ---
 
 ⚖️ Disclaimer & Research Manifesto
