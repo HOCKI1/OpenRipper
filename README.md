@@ -6,8 +6,8 @@
 
 If this tool saved you time or made your workflow easier, consider supporting its development:
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-orange.svg?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/YOUR_USERNAME)
-[![Patreon](https://img.shields.io/badge/Patreon-Support-red.svg?style=for-the-badge&logo=patreon)](https://www.patreon.com/YOUR_USERNAME)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-orange.svg?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/makskraft)
+[![Patreon](https://img.shields.io/badge/Patreon-Support-red.svg?style=for-the-badge&logo=patreon)](https://www.patreon.com/c/MaksKraftTeam)
 
 Your support helps keep this project open-source, maintained, and constantly improvi
 ng!
