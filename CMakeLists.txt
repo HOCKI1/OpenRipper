@@ -88,6 +88,47 @@ else()
     target_link_options(OpenRipperDx9 PRIVATE -static -static-libgcc -static-libstdc++)
 endif()
 
+# DirectX 10 backend
+set(D3D10_SOURCES
+    core/ObjExporter.cpp
+    backends/d3d10/D3D10Capture.cpp
+    backends/d3d10/D3D10Hooks.cpp
+)
+
+add_library(OpenRipperDx10 SHARED ${D3D10_SOURCES})
+set_target_properties(OpenRipperDx10 PROPERTIES
+    PREFIX ""
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/backends"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/backends"
+)
+
+target_include_directories(OpenRipperDx10 PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/backends/d3d10
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/dxsdk/Include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/minhook/include
+)
+
+target_compile_definitions(OpenRipperDx10 PRIVATE
+    NOMINMAX
+    WIN32_LEAN_AND_MEAN
+)
+
+target_link_libraries(OpenRipperDx10 PRIVATE
+    minhook
+    d3d10
+    dxgi
+    user32
+    gdi32
+)
+
+if (MSVC)
+    target_compile_options(OpenRipperDx10 PRIVATE /W3 /O2)
+else()
+    target_compile_options(OpenRipperDx10 PRIVATE -Wall -O3)
+    target_link_options(OpenRipperDx10 PRIVATE -static -static-libgcc -static-libstdc++)
+endif()
+
 # DirectX 11 backend
 set(D3D11_SOURCES
     core/ObjExporter.cpp

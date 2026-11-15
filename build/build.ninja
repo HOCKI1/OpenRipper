@@ -144,9 +144,9 @@ build CMakeFiles/OpenRipperDx9.dir/backends/d3d9/D3D9Hooks.cpp.obj: CXX_COMPILER
 #############################################
 # Link the shared library C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperDx9.dll
 
-build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll libOpenRipperDx9.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperDx9_ CMakeFiles/OpenRipperDx9.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperDx9.dir/backends/d3d9/D3D9Capture.cpp.obj CMakeFiles/OpenRipperDx9.dir/backends/d3d9/D3D9Hooks.cpp.obj | third_party/minhook/minhook.a || third_party/minhook/minhook.a
+build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll libOpenRipperDx9.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperDx9_ CMakeFiles/OpenRipperDx9.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperDx9.dir/backends/d3d9/D3D9Capture.cpp.obj CMakeFiles/OpenRipperDx9.dir/backends/d3d9/D3D9Hooks.cpp.obj | third_party/minhook/libminhook.a || third_party/minhook/libminhook.a
   LINK_FLAGS = -shared -static -static-libgcc -static-libstdc++
-  LINK_LIBRARIES = third_party/minhook/minhook.a  -ld3d9  -luser32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = third_party/minhook/libminhook.a  -ld3d9  -luser32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\OpenRipperDx9.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -155,6 +155,62 @@ build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll libOpenR
   TARGET_IMPLIB = libOpenRipperDx9.dll.a
   TARGET_PDB = OpenRipperDx9.dll.dbg
   TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperDx9.dir
+
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target OpenRipperDx10
+
+
+#############################################
+# Order-only phony target for OpenRipperDx10
+
+build cmake_object_order_depends_target_OpenRipperDx10: phony || cmake_object_order_depends_target_minhook
+
+build CMakeFiles/OpenRipperDx10.dir/core/ObjExporter.cpp.obj: CXX_COMPILER__OpenRipperDx10_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/core/ObjExporter.cpp || cmake_object_order_depends_target_OpenRipperDx10
+  DEFINES = -DNOMINMAX -DOpenRipperDx10_EXPORTS -DWIN32_LEAN_AND_MEAN
+  DEP_FILE = CMakeFiles\OpenRipperDx10.dir\core\ObjExporter.cpp.obj.d
+  FLAGS = -std=gnu++17 -Wall -O3
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/backends/d3d10 -IC:/Users/Makso/Desktop/OpenRipper/third_party/dxsdk/Include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = CMakeFiles\OpenRipperDx10.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperDx10.dir\core
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperDx10.dir
+
+build CMakeFiles/OpenRipperDx10.dir/backends/d3d10/D3D10Capture.cpp.obj: CXX_COMPILER__OpenRipperDx10_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/backends/d3d10/D3D10Capture.cpp || cmake_object_order_depends_target_OpenRipperDx10
+  DEFINES = -DNOMINMAX -DOpenRipperDx10_EXPORTS -DWIN32_LEAN_AND_MEAN
+  DEP_FILE = CMakeFiles\OpenRipperDx10.dir\backends\d3d10\D3D10Capture.cpp.obj.d
+  FLAGS = -std=gnu++17 -Wall -O3
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/backends/d3d10 -IC:/Users/Makso/Desktop/OpenRipper/third_party/dxsdk/Include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = CMakeFiles\OpenRipperDx10.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperDx10.dir\backends\d3d10
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperDx10.dir
+
+build CMakeFiles/OpenRipperDx10.dir/backends/d3d10/D3D10Hooks.cpp.obj: CXX_COMPILER__OpenRipperDx10_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/backends/d3d10/D3D10Hooks.cpp || cmake_object_order_depends_target_OpenRipperDx10
+  DEFINES = -DNOMINMAX -DOpenRipperDx10_EXPORTS -DWIN32_LEAN_AND_MEAN
+  DEP_FILE = CMakeFiles\OpenRipperDx10.dir\backends\d3d10\D3D10Hooks.cpp.obj.d
+  FLAGS = -std=gnu++17 -Wall -O3
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/backends/d3d10 -IC:/Users/Makso/Desktop/OpenRipper/third_party/dxsdk/Include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = CMakeFiles\OpenRipperDx10.dir
+  OBJECT_FILE_DIR = CMakeFiles\OpenRipperDx10.dir\backends\d3d10
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperDx10.dir
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target OpenRipperDx10
+
+
+#############################################
+# Link the shared library C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperDx10.dll
+
+build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx10.dll libOpenRipperDx10.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperDx10_ CMakeFiles/OpenRipperDx10.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperDx10.dir/backends/d3d10/D3D10Capture.cpp.obj CMakeFiles/OpenRipperDx10.dir/backends/d3d10/D3D10Hooks.cpp.obj | third_party/minhook/libminhook.a || third_party/minhook/libminhook.a
+  LINK_FLAGS = -shared -static -static-libgcc -static-libstdc++
+  LINK_LIBRARIES = third_party/minhook/libminhook.a  -ld3d10  -ldxgi  -luser32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\OpenRipperDx10.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  RESTAT = 1
+  TARGET_FILE = C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperDx10.dll
+  TARGET_IMPLIB = libOpenRipperDx10.dll.a
+  TARGET_PDB = OpenRipperDx10.dll.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\OpenRipperDx10.dir
 
 # =============================================================================
 # Object build statements for SHARED_LIBRARY target OpenRipperDx11
@@ -200,9 +256,9 @@ build CMakeFiles/OpenRipperDx11.dir/backends/d3d11/D3D11Hooks.cpp.obj: CXX_COMPI
 #############################################
 # Link the shared library C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperDx11.dll
 
-build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll libOpenRipperDx11.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperDx11_ CMakeFiles/OpenRipperDx11.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperDx11.dir/backends/d3d11/D3D11Capture.cpp.obj CMakeFiles/OpenRipperDx11.dir/backends/d3d11/D3D11Hooks.cpp.obj | third_party/minhook/minhook.a || third_party/minhook/minhook.a
+build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll libOpenRipperDx11.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperDx11_ CMakeFiles/OpenRipperDx11.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperDx11.dir/backends/d3d11/D3D11Capture.cpp.obj CMakeFiles/OpenRipperDx11.dir/backends/d3d11/D3D11Hooks.cpp.obj | third_party/minhook/libminhook.a || third_party/minhook/libminhook.a
   LINK_FLAGS = -shared -static -static-libgcc -static-libstdc++
-  LINK_LIBRARIES = third_party/minhook/minhook.a  -ld3d11  -ldxgi  -luser32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = third_party/minhook/libminhook.a  -ld3d11  -ldxgi  -luser32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\OpenRipperDx11.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -256,9 +312,9 @@ build CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLHooks.cpp.obj: CXX_COMPI
 #############################################
 # Link the shared library C:\Users\Makso\Desktop\OpenRipper\bin\backends\OpenRipperGL.dll
 
-build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll libOpenRipperGL.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperGL_ CMakeFiles/OpenRipperGL.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLCapture.cpp.obj CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLHooks.cpp.obj | third_party/minhook/minhook.a || third_party/minhook/minhook.a
+build C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll libOpenRipperGL.dll.a: CXX_SHARED_LIBRARY_LINKER__OpenRipperGL_ CMakeFiles/OpenRipperGL.dir/core/ObjExporter.cpp.obj CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLCapture.cpp.obj CMakeFiles/OpenRipperGL.dir/backends/opengl/OpenGLHooks.cpp.obj | third_party/minhook/libminhook.a || third_party/minhook/libminhook.a
   LINK_FLAGS = -shared -static -static-libgcc -static-libstdc++
-  LINK_LIBRARIES = third_party/minhook/minhook.a  -lopengl32  -lgdi32  -luser32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = third_party/minhook/libminhook.a  -lopengl32  -lgdi32  -luser32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\OpenRipperGL.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -328,48 +384,6 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
-
-#############################################
-# Utility command for list_install_components
-
-build list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Makso\Desktop\OpenRipper\build && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build install: phony CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Makso\Desktop\OpenRipper\build && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build install/local: phony CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Makso\Desktop\OpenRipper\build && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build install/strip: phony CMakeFiles/install/strip.util
-
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
 # C:/Users/Makso/Desktop/OpenRipper/CMakeLists.txt
@@ -386,28 +400,35 @@ build cmake_object_order_depends_target_minhook: phony || .
 
 build third_party/minhook/CMakeFiles/minhook.dir/src/buffer.c.obj: C_COMPILER__minhook_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/buffer.c || cmake_object_order_depends_target_minhook
   DEP_FILE = third_party\minhook\CMakeFiles\minhook.dir\src\buffer.c.obj.d
-  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hde
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
   OBJECT_DIR = third_party\minhook\CMakeFiles\minhook.dir
   OBJECT_FILE_DIR = third_party\minhook\CMakeFiles\minhook.dir\src
   TARGET_SUPPORT_DIR = third_party\minhook\CMakeFiles\minhook.dir
 
 build third_party/minhook/CMakeFiles/minhook.dir/src/hook.c.obj: C_COMPILER__minhook_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hook.c || cmake_object_order_depends_target_minhook
   DEP_FILE = third_party\minhook\CMakeFiles\minhook.dir\src\hook.c.obj.d
-  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hde
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
   OBJECT_DIR = third_party\minhook\CMakeFiles\minhook.dir
   OBJECT_FILE_DIR = third_party\minhook\CMakeFiles\minhook.dir\src
   TARGET_SUPPORT_DIR = third_party\minhook\CMakeFiles\minhook.dir
 
 build third_party/minhook/CMakeFiles/minhook.dir/src/trampoline.c.obj: C_COMPILER__minhook_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/trampoline.c || cmake_object_order_depends_target_minhook
   DEP_FILE = third_party\minhook\CMakeFiles\minhook.dir\src\trampoline.c.obj.d
-  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hde
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
   OBJECT_DIR = third_party\minhook\CMakeFiles\minhook.dir
   OBJECT_FILE_DIR = third_party\minhook\CMakeFiles\minhook.dir\src
   TARGET_SUPPORT_DIR = third_party\minhook\CMakeFiles\minhook.dir
 
+build third_party/minhook/CMakeFiles/minhook.dir/src/hde/hde32.c.obj: C_COMPILER__minhook_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hde/hde32.c || cmake_object_order_depends_target_minhook
+  DEP_FILE = third_party\minhook\CMakeFiles\minhook.dir\src\hde\hde32.c.obj.d
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
+  OBJECT_DIR = third_party\minhook\CMakeFiles\minhook.dir
+  OBJECT_FILE_DIR = third_party\minhook\CMakeFiles\minhook.dir\src\hde
+  TARGET_SUPPORT_DIR = third_party\minhook\CMakeFiles\minhook.dir
+
 build third_party/minhook/CMakeFiles/minhook.dir/src/hde/hde64.c.obj: C_COMPILER__minhook_unscanned_ C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hde/hde64.c || cmake_object_order_depends_target_minhook
   DEP_FILE = third_party\minhook\CMakeFiles\minhook.dir\src\hde\hde64.c.obj.d
-  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/src/hde
+  INCLUDES = -IC:/Users/Makso/Desktop/OpenRipper/core -IC:/Users/Makso/Desktop/OpenRipper/backends/vulkan -IC:/Users/Makso/Desktop/OpenRipper/third_party/minhook/include
   OBJECT_DIR = third_party\minhook\CMakeFiles\minhook.dir
   OBJECT_FILE_DIR = third_party\minhook\CMakeFiles\minhook.dir\src\hde
   TARGET_SUPPORT_DIR = third_party\minhook\CMakeFiles\minhook.dir
@@ -418,13 +439,13 @@ build third_party/minhook/CMakeFiles/minhook.dir/src/hde/hde64.c.obj: C_COMPILER
 
 
 #############################################
-# Link the static library third_party\minhook\minhook.a
+# Link the static library third_party\minhook\libminhook.a
 
-build third_party/minhook/minhook.a: C_STATIC_LIBRARY_LINKER__minhook_ third_party/minhook/CMakeFiles/minhook.dir/src/buffer.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/hook.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/trampoline.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/hde/hde64.c.obj
+build third_party/minhook/libminhook.a: C_STATIC_LIBRARY_LINKER__minhook_ third_party/minhook/CMakeFiles/minhook.dir/src/buffer.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/hook.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/trampoline.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/hde/hde32.c.obj third_party/minhook/CMakeFiles/minhook.dir/src/hde/hde64.c.obj
   OBJECT_DIR = third_party\minhook\CMakeFiles\minhook.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = third_party\minhook\minhook.a
+  TARGET_FILE = third_party\minhook\libminhook.a
   TARGET_PDB = minhook.a.dbg
   TARGET_SUPPORT_DIR = third_party\minhook\CMakeFiles\minhook.dir
 
@@ -452,50 +473,12 @@ build third_party/minhook/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build third_party/minhook/rebuild_cache: phony third_party/minhook/CMakeFiles/rebuild_cache.util
 
-
-#############################################
-# Utility command for list_install_components
-
-build third_party/minhook/list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build third_party/minhook/CMakeFiles/install.util: CUSTOM_COMMAND third_party/minhook/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Makso\Desktop\OpenRipper\build\third_party\minhook && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build third_party/minhook/install: phony third_party/minhook/CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build third_party/minhook/CMakeFiles/install/local.util: CUSTOM_COMMAND third_party/minhook/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Makso\Desktop\OpenRipper\build\third_party\minhook && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build third_party/minhook/install/local: phony third_party/minhook/CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build third_party/minhook/CMakeFiles/install/strip.util: CUSTOM_COMMAND third_party/minhook/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Makso\Desktop\OpenRipper\build\third_party\minhook && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build third_party/minhook/install/strip: phony third_party/minhook/CMakeFiles/install/strip.util
-
 # =============================================================================
 # Target aliases.
+
+build OpenRipperDx10: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx10.dll
+
+build OpenRipperDx10.dll: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx10.dll
 
 build OpenRipperDx11: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll
 
@@ -517,9 +500,9 @@ build OpenRipperVk: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRi
 
 build OpenRipperVk.dll: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperVk.dll
 
-build minhook: phony third_party/minhook/minhook.a
+build libminhook.a: phony third_party/minhook/libminhook.a
 
-build minhook.a: phony third_party/minhook/minhook.a
+build minhook: phony third_party/minhook/libminhook.a
 
 # =============================================================================
 # Folder targets.
@@ -529,14 +512,14 @@ build minhook.a: phony third_party/minhook/minhook.a
 #############################################
 # Folder: C:/Users/Makso/Desktop/OpenRipper/build
 
-build all: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperVk.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll C$:/Users/Makso/Desktop/OpenRipper/bin/OpenRipperLoader.exe
+build all: phony C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperVk.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx9.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx10.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperDx11.dll C$:/Users/Makso/Desktop/OpenRipper/bin/backends/OpenRipperGL.dll C$:/Users/Makso/Desktop/OpenRipper/bin/OpenRipperLoader.exe
 
 # =============================================================================
 
 #############################################
 # Folder: C:/Users/Makso/Desktop/OpenRipper/build/third_party/minhook
 
-build third_party/minhook/all: phony third_party/minhook/minhook.a
+build third_party/minhook/all: phony third_party/minhook/libminhook.a
 
 # =============================================================================
 # Built-in targets
@@ -545,14 +528,14 @@ build third_party/minhook/all: phony third_party/minhook/minhook.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/Users/Makso/Desktop/OpenRipper/build/cmake_install.cmake C$:/Users/Makso/Desktop/OpenRipper/build/third_party/minhook/cmake_install.cmake: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-4.2/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Makso/Desktop/OpenRipper/CMakeLists.txt C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/CMakeLists.txt C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/cmake/minhook-config.cmake.in CMakeCache.txt CMakeFiles/4.2.0-rc3/CMakeCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeCXXCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeRCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeSystem.cmake
+build build.ninja C$:/Users/Makso/Desktop/OpenRipper/build/cmake_install.cmake C$:/Users/Makso/Desktop/OpenRipper/build/third_party/minhook/cmake_install.cmake: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/WindowsPaths.cmake C$:/Users/Makso/Desktop/OpenRipper/CMakeLists.txt C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/CMakeLists.txt CMakeCache.txt CMakeFiles/4.2.0-rc3/CMakeCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeCXXCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeRCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/CMake/share/cmake-4.2/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/Makso/Desktop/OpenRipper/CMakeLists.txt C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/CMakeLists.txt C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/cmake/minhook-config.cmake.in CMakeCache.txt CMakeFiles/4.2.0-rc3/CMakeCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeCXXCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeRCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeSystem.cmake: phony
+build C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.2/Modules/Platform/WindowsPaths.cmake C$:/Users/Makso/Desktop/OpenRipper/CMakeLists.txt C$:/Users/Makso/Desktop/OpenRipper/third_party/minhook/CMakeLists.txt CMakeCache.txt CMakeFiles/4.2.0-rc3/CMakeCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeCXXCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeRCCompiler.cmake CMakeFiles/4.2.0-rc3/CMakeSystem.cmake: phony
 
 
 #############################################

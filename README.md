@@ -31,7 +31,7 @@ ng!
 | :--- | :---: |
 | **Vulkan (Legacy/RPCS3)** | 🟢 Supported |
 | **DirectX 9** | 🟢 Supported |
-| **DirectX 10** | 🟡 In Development |
+| **DirectX 10** | 🟢 Supported |
 | **DirectX 11** | 🟢 Supported |
 | **DirectX 12** | 🟡 In Development |
 | **OpenGL** | 🟢 Supported |

@@ -249,9 +249,10 @@ static void SaveConfig() {
 
     const char* apiName = "Vulkan";
     if (apiIndex == 1) apiName = "DirectX 9";
-    else if (apiIndex == 2) apiName = "DirectX 11";
-    else if (apiIndex == 3) apiName = "OpenGL";
-    else if (apiIndex == 4) apiName = "DXVK";
+    else if (apiIndex == 2) apiName = "DirectX 10";
+    else if (apiIndex == 3) apiName = "DirectX 11";
+    else if (apiIndex == 4) apiName = "OpenGL";
+    else if (apiIndex == 5) apiName = "DXVK";
 
     std::vector<std::string> iniTargets = {
         GetConfigPath(),
@@ -464,6 +465,92 @@ static void LaunchGame(HWND hWnd) {
             MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
         }
     } else if (apiIndex == 2) {
+        // DirectX 10 (Injection)
+        std::string dllName = is64Bit ? "OpenRipperDx10.dll" : "OpenRipperDx10_x86.dll";
+        std::string dllPath = FindBackendFile(dllName);
+
+        if (dllPath.empty() || !std::filesystem::exists(dllPath)) {
+            std::string msg = dllName + " not found in backends or application directory!";
+            MessageBoxA(hWnd, msg.c_str(), "OpenRipper Loader", MB_ICONERROR);
+            return;
+        }
+
+        BOOL success = CreateProcessA(
+            gamePath, NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL,
+            workDir.c_str(), &si, &pi
+        );
+
+        if (success) {
+            bool injected = false;
+            if (is64Bit) {
+                SIZE_T len = dllPath.length() + 1;
+                LPVOID pRemoteMem = VirtualAllocEx(pi.hProcess, NULL, len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+                if (pRemoteMem) {
+                    if (WriteProcessMemory(pi.hProcess, pRemoteMem, dllPath.c_str(), len, NULL)) {
+                        HMODULE hK32 = GetModuleHandleA("kernel32.dll");
+                        LPTHREAD_START_ROUTINE pfnLoadLib = (LPTHREAD_START_ROUTINE)GetProcAddress(hK32, "LoadLibraryA");
+                        HANDLE hThread = CreateRemoteThread(pi.hProcess, NULL, 0, pfnLoadLib, pRemoteMem, 0, NULL);
+                        if (hThread) {
+                            WaitForSingleObject(hThread, 3000);
+                            CloseHandle(hThread);
+                            injected = true;
+                        }
+                    }
+                    VirtualFreeEx(pi.hProcess, pRemoteMem, 0, MEM_RELEASE);
+                }
+            } else {
+                std::string injectorPath = FindHelperExecutable("OpenRipperInjector32.exe");
+                if (injectorPath.empty() || !std::filesystem::exists(injectorPath)) {
+                    MessageBoxA(hWnd, "OpenRipperInjector32.exe helper not found!", "OpenRipper Loader", MB_ICONERROR);
+                    ResumeThread(pi.hThread);
+                    CloseHandle(pi.hThread);
+                    CloseHandle(pi.hProcess);
+                    return;
+                }
+
+                std::string cmd = "\"" + injectorPath + "\" " + std::to_string(pi.dwProcessId) + " \"" + dllPath + "\"";
+                STARTUPINFOA injSi = {0};
+                PROCESS_INFORMATION injPi = {0};
+                injSi.cb = sizeof(injSi);
+
+                if (CreateProcessA(NULL, (LPSTR)cmd.c_str(), NULL, NULL, FALSE, 0, NULL, NULL, &injSi, &injPi)) {
+                    WaitForSingleObject(injPi.hProcess, 5000);
+                    DWORD exitCode = 0;
+                    GetExitCodeProcess(injPi.hProcess, &exitCode);
+                    CloseHandle(injPi.hProcess);
+                    CloseHandle(injPi.hThread);
+                    if (exitCode == 0) {
+                        injected = true;
+                    }
+                }
+            }
+
+            ResumeThread(pi.hThread);
+            CloseHandle(pi.hThread);
+            CloseHandle(pi.hProcess);
+
+            if (injected) {
+                std::ostringstream ss;
+                ss << "DirectX 10 Game launched and injected successfully!\n\n"
+                   << "Architecture: " << (is64Bit ? "64-bit (x64)" : "32-bit (x86)") << "\n"
+                   << "Injected DLL: " << dllName << "\n"
+                   << "Primary hotkey: [ " << g_KeyList1[key1Idx].name << " ]\n"
+                   << "Secondary hotkey: [ " << g_KeyList2[key2Idx].name << " ]\n"
+                   << "Output folder: " << outDir;
+                SetWindowTextA(g_hStatus, "Game is running with D3D10 hook. Press hotkey in-game.");
+                MessageBoxA(hWnd, ss.str().c_str(), "OpenRipper D3D10 Active", MB_ICONINFORMATION);
+            } else {
+                std::string warnStr = "Game started, but DLL injection failed (possible anti-cheat or permissions issue).";
+                SetWindowTextA(g_hStatus, warnStr.c_str());
+                MessageBoxA(hWnd, warnStr.c_str(), "Injection Warning", MB_ICONWARNING);
+            }
+        } else {
+            DWORD err = GetLastError();
+            std::string errStr = "Failed to launch game. Error code: " + std::to_string(err);
+            SetWindowTextA(g_hStatus, errStr.c_str());
+            MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
+        }
+    } else if (apiIndex == 3) {
         // DirectX 11 (Injection)
         if (!is64Bit) {
             MessageBoxA(hWnd, "DirectX 11 support is currently 64-bit (x64) only!", "OpenRipper Loader", MB_ICONWARNING);
@@ -525,7 +612,7 @@ static void LaunchGame(HWND hWnd) {
             SetWindowTextA(g_hStatus, errStr.c_str());
             MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
         }
-    } else if (apiIndex == 3) {
+    } else if (apiIndex == 4) {
         // OpenGL (Injection)
         std::string dllName = is64Bit ? "OpenRipperGL.dll" : "OpenRipperGL_x86.dll";
         std::string dllPath = FindBackendFile(dllName);
@@ -616,7 +703,7 @@ static void LaunchGame(HWND hWnd) {
             SetWindowTextA(g_hStatus, errStr.c_str());
             MessageBoxA(hWnd, errStr.c_str(), "Launch Error", MB_ICONERROR);
         }
-    } else if (apiIndex == 4) {
+    } else if (apiIndex == 5) {
         // DXVK (DirectX -> Vulkan)
         std::string dxvkDir = FindDxvkDir(is64Bit);
         if (dxvkDir.empty() || !std::filesystem::exists(dxvkDir)) {
@@ -719,6 +806,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                                         20, 95, 200, 200, hWnd, (HMENU)IDC_COMBO_API, NULL, NULL);
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"Vulkan (Native / RPCS3)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DirectX 9 (D3D9 Injection)");
+            SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DirectX 10 (D3D10 Injection)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DirectX 11 (D3D11 Injection)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"OpenGL (GL Injection)");
             SendMessageA(g_hComboApi, CB_ADDSTRING, 0, (LPARAM)"DXVK (DirectX -> Vulkan)");

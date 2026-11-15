@@ -11,7 +11,7 @@ cd /d "%~dp0"
 if not exist bin mkdir bin
 if not exist bin\backends mkdir bin\backends
 
-echo [*] Building 64-bit components (Loader, Vulkan, D3D9 x64, D3D11 x64, OpenGL x64)...
+echo [*] Building 64-bit components (Loader, Vulkan, D3D9 x64, D3D10 x64, D3D11 x64, OpenGL x64)...
 set "PATH=C:\msys64\ucrt64\bin;C:\msys64\usr\bin;%PATH%"
 
 cmake -B build -S . -G Ninja
@@ -27,7 +27,7 @@ if errorlevel 1 (
 )
 
 echo.
-echo [*] Building 32-bit components (D3D9 x86, OpenGL x86, Injector32)...
+echo [*] Building 32-bit components (D3D9 x86, D3D10 x86, OpenGL x86, Injector32)...
 set "PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%"
 
 g++ -O3 -shared -static -static-libgcc -static-libstdc++ ^
@@ -39,6 +39,18 @@ g++ -O3 -shared -static -static-libgcc -static-libstdc++ ^
 
 if errorlevel 1 (
     echo [ERROR] 32-bit OpenRipperDx9_x86.dll build failed!
+    exit /b 1
+)
+
+g++ -O3 -shared -static -static-libgcc -static-libstdc++ ^
+    -Icore -Ibackends/d3d10 -Ithird_party/dxsdk/Include -Ithird_party/minhook/include ^
+    core/ObjExporter.cpp backends/d3d10/D3D10Capture.cpp backends/d3d10/D3D10Hooks.cpp ^
+    third_party/minhook/src/buffer.c third_party/minhook/src/hook.c ^
+    third_party/minhook/src/trampoline.c third_party/minhook/src/hde/hde32.c ^
+    -o bin/backends/OpenRipperDx10_x86.dll -ld3d10 -ldxgi -luser32 -lgdi32
+
+if errorlevel 1 (
+    echo [ERROR] 32-bit OpenRipperDx10_x86.dll build failed!
     exit /b 1
 )
 
@@ -87,6 +99,8 @@ echo       OpenRipperVk.dll
 echo       VkLayer_openripper.json
 echo       OpenRipperDx9.dll
 echo       OpenRipperDx9_x86.dll
+echo       OpenRipperDx10.dll
+echo       OpenRipperDx10_x86.dll
 echo       OpenRipperDx11.dll
 echo       OpenRipperGL.dll
 echo       OpenRipperGL_x86.dll
